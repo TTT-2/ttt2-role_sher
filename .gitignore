@@ -1,41 +1,28 @@
-# Compiled Lua sources
-luac.out
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
 
-# luarocks build files
-*.src.rock
-*.zip
-*.tar.gz
+# Folder config file
+Desktop.ini
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
 
-# Precompiled Headers
-*.gch
-*.pch
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
+# Windows shortcuts
+*.lnk
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# =========================
+# Operating System Files
+# =========================
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
+#
+.ftpconfig
+addon.json
+*.gma
