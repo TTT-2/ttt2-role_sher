@@ -151,7 +151,7 @@ if SERVER then
 		for _, dep in ipairs(deps) do
 			if IsValid(dep) and dep:IsPlayer() and dep:IsActive() then
 				dep:SetNWEntity("binded_deputy", nil)
-				dep:Kill()
+				dep:TakeDamage(99999, game.GetWorld())
 			end
 		end
 	end)
@@ -163,7 +163,7 @@ if SERVER then
 		for _, dep in ipairs(deps) do
 			if IsValid(dep) and dep:IsActive() then
 				dep:SetNWEntity("binded_deputy", nil)
-				dep:Kill()
+				dep:TakeDamage(99999, game.GetWorld())
 
 				if #deps == 1 then -- a player can just be binded with one player as deputy
 					ply.spawn_as_deputy = dep
