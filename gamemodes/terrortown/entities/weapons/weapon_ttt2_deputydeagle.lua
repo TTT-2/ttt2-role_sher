@@ -100,10 +100,10 @@ local function DeputyDeagleCallback(attacker, tr, dmg)
 	local target = tr.Entity
 
 	--invalid shot return
-	if not GetRoundState() == ROUND_ACTIVE or not IsValid(attacker) or not attacker:IsTerror() then return end
+	if not GetRoundState() == ROUND_ACTIVE or not IsValid(attacker) or not attacker:IsPlayer() or not attacker:IsTerror() then return end
 
 	--no/bad hit: (send message), start timer and return
-	if not IsValid(target) or not target:IsTerror() or target:IsInTeam(attacker) then
+	if not IsValid(target) or not target:IsPlayer() or not target:IsTerror() or target:IsInTeam(attacker) then
 		if IsValid(target) and target:IsInTeam(attacker) then
 			net.Start("tttDeputySameTeam")
 			net.Send(attacker)	
