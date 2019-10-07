@@ -9,27 +9,42 @@ end
 local plymeta = FindMetaTable("Player")
 if not plymeta then return end
 
-ROLE.Base = "ttt_role_base"
+function ROLE:PreInitialize()
+	self.color = Color(83, 120, 182, 255) -- ...
+	self.dkcolor = Color(55, 94, 161, 255) -- ...
+	self.bgcolor = Color(255, 226, 102, 255) -- ...
+	self.abbr = "dep" -- abbreviation
+	self.scoreKillsMultiplier = 1 -- multiplier for kill of player of another team
+	self.scoreTeamKillsMultiplier = -16 -- multiplier for teamkill
+	self.notSelectable = true -- role cant be selected!
+	self.unknownTeam = true -- player don't know their teammates
+	
+	self.defaultEquipment = SPECIAL_EQUIPMENT -- here you can set up your own default equipment
 
-ROLE.color = Color(83, 120, 182, 255) -- ...
-ROLE.dkcolor = Color(55, 94, 161, 255) -- ...
-ROLE.bgcolor = Color(255, 226, 102, 255) -- ...
-ROLE.abbr = "dep" -- abbreviation
-ROLE.defaultEquipment = SPECIAL_EQUIPMENT -- here you can set up your own default equipment
-ROLE.scoreKillsMultiplier = 1 -- multiplier for kill of player of another team
-ROLE.scoreTeamKillsMultiplier = -16 -- multiplier for teamkill
-ROLE.notSelectable = true -- role cant be selected!
-ROLE.unknownTeam = true -- player don't know their teammates
+	self.conVarData = {
+		credits = 1, -- the starting credits of a specific role
+		shopFallback = SHOP_FALLBACK_DETECTIVE
+	}
+end
 
-ROLE.conVarData = {
-	credits = 1, -- the starting credits of a specific role
-	shopFallback = SHOP_FALLBACK_DETECTIVE
-}
+function ROLE:Initialize()
+	roles.SetBaseRole(self, ROLE_DETECTIVE)
+	
+	if CLIENT then
+		-- Role specific language elements
+		LANG.AddToLanguage("English", self.name, "Deputy")
+		LANG.AddToLanguage("English", "target_" .. self.name, "Deputy")
+		LANG.AddToLanguage("English", "ttt2_desc_" .. self.name, [[You need to help protecting the innocents!]])
+		LANG.AddToLanguage("English", "body_found_" .. self.abbr, "This was a Deputy...")
+		LANG.AddToLanguage("English", "search_role_" .. self.abbr, "This person was a Deputy!")
 
--- now link this subrole with its baserole
-hook.Add("TTT2BaseRoleInit", "TTT2ConBRDWithDep", function()
-	DEPUTY:SetBaseRole(ROLE_DETECTIVE)
-end)
+		LANG.AddToLanguage("Deutsch", self.name, "Hilfssheriff")
+		LANG.AddToLanguage("Deutsch", "target_" .. self.name, "Hilfssheriff")
+		LANG.AddToLanguage("Deutsch", "ttt2_desc_" .. self.name, [[Du musst helfen, die Innocents zu beschützen!]])
+		LANG.AddToLanguage("Deutsch", "body_found_" .. self.abbr, "Er war ein Hilfssheriff!")
+		LANG.AddToLanguage("Deutsch", "search_role_" .. self.abbr, "Diese Person war ein Hilfssheriff!")
+	end
+end
 
 hook.Add("TTTUlxDynamicRCVars", "TTTUlxDynamicDepCVars", function(tbl)
 	tbl[ROLE_DEPUTY] = tbl[ROLE_DEPUTY] or {}
@@ -39,24 +54,6 @@ hook.Add("TTTUlxDynamicRCVars", "TTTUlxDynamicDepCVars", function(tbl)
 	table.insert(tbl[ROLE_DEPUTY], {cvar = "ttt2_dep_deagle_refill_cd", slider = true, min = 1, max = 300, desc = "Seconds to Refill (Def. 120)"})
 	table.insert(tbl[ROLE_DEPUTY], {cvar = "ttt2_dep_deagle_refill_cd_per_kill", slider = true, min = 1, max = 300, desc = "CD Reduction per Kill (Def. 60)"})
 end)
-
--- if sync of roles has finished
-if CLIENT then
-	hook.Add("TTT2FinishedLoading", "DepInitD", function()
-		-- Role specific language elements
-		LANG.AddToLanguage("English", DEPUTY.name, "Deputy")
-		LANG.AddToLanguage("English", "target_" .. DEPUTY.name, "Deputy")
-		LANG.AddToLanguage("English", "ttt2_desc_" .. DEPUTY.name, [[You need to help protecting the innocents!]])
-		LANG.AddToLanguage("English", "body_found_" .. DEPUTY.abbr, "This was a Deputy...")
-		LANG.AddToLanguage("English", "search_role_" .. DEPUTY.abbr, "This person was a Deputy!")
-
-		LANG.AddToLanguage("Deutsch", DEPUTY.name, "Hilfssheriff")
-		LANG.AddToLanguage("Deutsch", "target_" .. DEPUTY.name, "Hilfssheriff")
-		LANG.AddToLanguage("Deutsch", "ttt2_desc_" .. DEPUTY.name, [[Du musst helfen, die Innocents zu beschützen!]])
-		LANG.AddToLanguage("Deutsch", "body_found_" .. DEPUTY.abbr, "Er war ein Hilfssheriff!")
-		LANG.AddToLanguage("Deutsch", "search_role_" .. DEPUTY.abbr, "Diese Person war ein Hilfssheriff!")
-	end)
-end
 
 function plymeta:IsDeputy()
 	return IsValid(self:GetNWEntity("binded_deputy", nil))
