@@ -19,7 +19,6 @@ if SERVER then
 	util.AddNetworkString("tttDeputyRefillCDReduced")
 	util.AddNetworkString("tttDeputyDeagleRefilled")
 	util.AddNetworkString("tttDeputyDeagleMiss")
-	util.AddNetworkString("tttDeputySameTeam")
 else
 	hook.Add("Initialize", "TTTInitSikiDeagleLang", function()
 		LANG.AddToLanguage("English", "ttt2_weapon_deputydeagle_desc", "Shoot a player to make him your deputy.")
@@ -103,12 +102,7 @@ local function DeputyDeagleCallback(attacker, tr, dmg)
 	if not GetRoundState() == ROUND_ACTIVE or not IsValid(attacker) or not attacker:IsPlayer() or not attacker:IsTerror() then return end
 
 	--no/bad hit: (send message), start timer and return
-	if not IsValid(target) or not target:IsPlayer() or not target:IsTerror() or target:IsInTeam(attacker) then
-		if IsValid(target) and target:IsInTeam(attacker) then
-			net.Start("tttDeputySameTeam")
-			net.Send(attacker)	
-		end	
-		
+	if not IsValid(target) or not target:IsPlayer() or not target:IsTerror() then
 		if ttt2_deputy_deagle_refill_conv:GetBool() then
 			net.Start("tttDeputyDeagleMiss")
 			net.Send(attacker)
@@ -211,9 +205,6 @@ if CLIENT then
 		LANG.AddToLanguage("English", "ttt2_dep_were_shot", "You were shot as deputy by {name}!")
 		LANG.AddToLanguage("Deutsch", "ttt2_dep_were_shot", "Du wurdest von {name} zum Hilfssheriff geschossen!")
 
-		LANG.AddToLanguage("English", "ttt2_dep_sameteam", "You can't shoot someone from your team as deputy!")
-		LANG.AddToLanguage("Deutsch", "ttt2_dep_sameteam", "Du kannst niemanden aus deinem Team zum Hilfssheriff schießen!")
-
 		LANG.AddToLanguage("English", "ttt2_dep_ply_killed", "Your deputy deagle cooldown was reduced by {amount} seconds.")
 		LANG.AddToLanguage("Deutsch", "ttt2_dep_ply_killed", "Deine Deputy Deagle Wartezeit wurde um {amount} Sekunden reduziert.")
 
@@ -285,10 +276,6 @@ if CLIENT then
 			
 			DeputyDeagleRefilled(wep)
 		end)	
-	end)
-
-	net.Receive("tttDeputySameTeam", function()
-		MSTACK:AddMessage(LANG.GetTranslation("ttt2_dep_sameteam"))
 	end)
 else
 	net.Receive("tttDeputyDeagleRefilled", function()
