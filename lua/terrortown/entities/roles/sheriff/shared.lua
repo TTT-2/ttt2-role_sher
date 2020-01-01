@@ -5,14 +5,13 @@ if SERVER then
 end
 
 function ROLE:PreInitialize()
-	self.color = Color(51, 93, 165, 255) -- ...
-	self.dkcolor = Color(23, 70, 152, 255) -- ...
-	self.bgcolor = Color(249, 212, 59, 255) -- ...
+	self.color = Color(51, 93, 165, 255)
+
 	self.abbr = "sher" -- abbreviation
 	self.scoreKillsMultiplier = 1 -- multiplier for kill of player of another team
 	self.scoreTeamKillsMultiplier = -8 -- multiplier for teamkill
 	self.unknownTeam = true
-	
+
 	self.defaultTeam = TEAM_INNOCENT -- the team name: roles with same team name are working together
 	self.defaultEquipment = SPECIAL_EQUIPMENT -- here you can set up your own default equipment
 
@@ -53,12 +52,12 @@ function ROLE:Initialize()
 end
 
 if SERVER then
-	-- Give Loadout on respawn and rolechange	
+	-- Give Loadout on respawn and rolechange
 	function ROLE:GiveRoleLoadout(ply, isRoleChange)
 		if isRoleChange then -- TODO: maybe give dep deagle on respawn if not used before
 			ply:GiveEquipmentWeapon("weapon_ttt2_deputydeagle")
 		end
-		
+
 		ply:GiveEquipmentItem("item_ttt_armor")
 	end
 

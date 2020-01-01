@@ -10,15 +10,14 @@ local plymeta = FindMetaTable("Player")
 if not plymeta then return end
 
 function ROLE:PreInitialize()
-	self.color = Color(83, 120, 182, 255) -- ...
-	self.dkcolor = Color(55, 94, 161, 255) -- ...
-	self.bgcolor = Color(255, 226, 102, 255) -- ...
+	self.color = Color(83, 120, 182, 255)
+
 	self.abbr = "dep" -- abbreviation
 	self.scoreKillsMultiplier = 1 -- multiplier for kill of player of another team
 	self.scoreTeamKillsMultiplier = -16 -- multiplier for teamkill
 	self.notSelectable = true -- role cant be selected!
 	self.unknownTeam = true -- player don't know their teammates
-	
+
 	self.defaultEquipment = SPECIAL_EQUIPMENT -- here you can set up your own default equipment
 
 	self.conVarData = {
@@ -29,7 +28,7 @@ end
 
 function ROLE:Initialize()
 	roles.SetBaseRole(self, ROLE_DETECTIVE)
-	
+
 	if CLIENT then
 		-- Role specific language elements
 		LANG.AddToLanguage("English", self.name, "Deputy")
@@ -92,7 +91,7 @@ if SERVER then
 
 		target:SetNWEntity("binded_deputy", attacker)
 		target:SetRole(ROLE_DEPUTY)
-		
+
 		local credits = target:GetCredits()
 		target:SetDefaultCredits()
 		target:SetCredits(target:GetCredits() + credits)
@@ -121,7 +120,7 @@ if SERVER then
 			or (target:Health() - dmginfo:GetDamage()) > 0
 			or not hook.Run("TTT2DEPAddDeputy", attacker, target)
 		then return end
-		
+
 		dmginfo:ScaleDamage(0)
 
 		AddDeputy(target, attacker)
@@ -133,18 +132,16 @@ if SERVER then
 	end)
 
 	hook.Add("PlayerDisconnected", "DepPlyDisconnected", function(discPly)
-		local deps, mate
+		local deps
 
 		if discPly:IsDeputy() then
 			deps = {discPly}
-			mate = discPly:GetDeputyMate()
 		else
 			deps = discPly:GetDeputys()
-			mate = discPly
 		end
 
 		if not deps then return end
-		
+
 		for _, dep in ipairs(deps) do
 			if IsValid(dep) and dep:IsPlayer() and dep:IsActive() then
 				dep:SetNWEntity("binded_deputy", nil)
@@ -156,7 +153,7 @@ if SERVER then
 	hook.Add("PostPlayerDeath", "PlayerDeathChangeDep", function(ply)
 		local deps = ply:GetDeputys()
 		if not deps then return end
-		
+
 		for _, dep in ipairs(deps) do
 			if IsValid(dep) and dep:IsActive() then
 				dep:SetNWEntity("binded_deputy", nil)
@@ -168,7 +165,7 @@ if SERVER then
 			end
 		end
 	end)
-	
+
 	hook.Add("PlayerSpawn", "PlayerSpawnsAsDeputy", function(ply)
 		if not ply.spawn_as_deputy then return end
 
@@ -176,7 +173,9 @@ if SERVER then
 
 		ply.spawn_as_deputy = nil
 	end)
-else -- CLIENT
+end
+
+if CLIENT then
 	net.Receive("TTT2HealDeputy", function()
 		HealDeputy(LocalPlayer())
 	end)

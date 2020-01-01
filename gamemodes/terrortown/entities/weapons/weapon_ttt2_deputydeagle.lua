@@ -84,10 +84,10 @@ local function DeputyDeagleRefilled(wep)
 	if not IsValid(wep) then return end
 
 	local text = LANG.GetTranslation("ttt2_dep_recharged")
-	
+
 	MSTACK:AddMessage(text)
 	STATUS:RemoveStatus("ttt2_deputy_deagle_reloading")
-	
+
 	net.Start("tttDeputyDeagleRefilled")
 	net.WriteEntity(wep)
 	net.SendToServer()
@@ -107,7 +107,7 @@ local function DeputyDeagleCallback(attacker, tr, dmg)
 			net.Start("tttDeputyDeagleMiss")
 			net.Send(attacker)
 		end
-		
+
 		return
 	end
 
@@ -115,9 +115,9 @@ local function DeputyDeagleCallback(attacker, tr, dmg)
 	if IsValid(deagle) then
 		deagle:Remove()
 	end
-	
+
 	AddDeputy(target, attacker)
-	
+
 	net.Start("tttDeputyMSG_attacker")
 	net.WriteEntity(target)
 	net.Send(attacker)
@@ -135,7 +135,7 @@ end
 
 function SWEP:ShootBullet(dmg, recoil, numbul, cone)
 	cone = cone or 0.01
-	
+
 	local bullet = {}
 	bullet.Num = 1
 	bullet.Src = self:GetOwner():GetShootPos()
@@ -146,16 +146,16 @@ function SWEP:ShootBullet(dmg, recoil, numbul, cone)
 	bullet.Force = 10
 	bullet.Damage = 0
 	bullet.Callback = DeputyDeagleCallback
-	
+
 	self:GetOwner():FireBullets(bullet)
 
 	self.BaseClass.ShootBullet(self, dmg, recoil, numbul, cone)
 end
 
 function SWEP:OnRemove()
-	if CLIENT then 
-		STATUS:RemoveStatus("ttt2_deputy_deagle_reloading") 
-		
+	if CLIENT then
+		STATUS:RemoveStatus("ttt2_deputy_deagle_reloading")
+
 		timer.Stop("ttt2_deputy_deagle_refill_timer")
 	end
 end
@@ -183,7 +183,7 @@ end
 if SERVER then
 	hook.Add("PlayerDeath", "DeputyDeagleRefillReduceCD", function(victim, inflictor, attacker)
 		if not IsValid(attacker) or not attacker:IsPlayer() or not attacker:HasWeapon("weapon_ttt2_deputydeagle") or not ttt2_deputy_deagle_refill_conv:GetBool() then return end
-		
+
 		net.Start("tttDeputyRefillCDReduced")
 		net.Send(attacker)
 	end)
@@ -193,7 +193,7 @@ end
 -- auto add deputy weapon into jackal shop
 hook.Add("LoadedFallbackShops", "DeputyDeagleAddToShop", function()
 	if not SHERIFF or not DEPUTY or not SHERIFF.fallbackTable then return end
-	
+
 	AddWeaponIntoFallbackTable("weapon_ttt2_deputydeagle", SHERIFF)
 end)
 
@@ -212,7 +212,7 @@ if CLIENT then
 		LANG.AddToLanguage("Deutsch", "ttt2_dep_recharged", "Deine Deputy Deagle wurde wieder aufgefüllt.")
 	end)
 
-	hook.Add("Initialize", "ttt_deputy_init_status", function() 
+	hook.Add("Initialize", "ttt_deputy_init_status", function()
 		STATUS:RegisterStatus("ttt2_deputy_deagle_reloading", {
 			hud = Material("vgui/ttt/hud_icon_deagle.png"),
 			type = "bad"
@@ -237,17 +237,17 @@ if CLIENT then
 
 	net.Receive("tttDeputyRefillCDReduced", function()
 		if not timer.Exists("ttt2_deputy_deagle_refill_timer") or not LocalPlayer():HasWeapon("weapon_ttt2_deputydeagle") then return end
-		
+
 		local timeLeft = timer.TimeLeft("ttt2_deputy_deagle_refill_timer") or 0
 		local newTime = math.max(timeLeft - ttt2_dep_deagle_refill_cd_per_kill_conv:GetInt(), 0.1)
-		
+
 		local wep = LocalPlayer():GetWeapon("weapon_ttt2_deputydeagle")
 		if not IsValid(wep) then return end
-		
+
 		timer.Adjust("ttt2_deputy_deagle_refill_timer", newTime, 1, function()
 			if not IsValid(wep) then return end
-			
-			DeputyDeagleRefilled(wep) 
+
+			DeputyDeagleRefilled(wep)
 		end)
 
 		if STATUS.active["ttt2_deputy_deagle_reloading"] then
@@ -256,7 +256,7 @@ if CLIENT then
 
 		local text = LANG.GetParamTranslation("ttt2_dep_ply_killed", {amount = ttt2_dep_deagle_refill_cd_per_kill_conv:GetInt()})
 		MSTACK:AddMessage(text)
-		
+
 		chat.PlaySound()
 	end)
 
@@ -266,22 +266,22 @@ if CLIENT then
 
 		local wep = client:GetWeapon("weapon_ttt2_deputydeagle")
 		if not IsValid(wep) then return end
-		
+
 		local initialCD = ttt2_deputy_deagle_refill_cd_conv:GetInt()
 
-		STATUS:AddTimedStatus("ttt2_deputy_deagle_reloading", initialCD, true) 
-		
+		STATUS:AddTimedStatus("ttt2_deputy_deagle_reloading", initialCD, true)
+
 		timer.Create("ttt2_deputy_deagle_refill_timer", initialCD, 1, function()
 			if not IsValid(wep) then return end
-			
+
 			DeputyDeagleRefilled(wep)
-		end)	
+		end)
 	end)
 else
 	net.Receive("tttDeputyDeagleRefilled", function()
 		local wep = net.ReadEntity()
 		if not IsValid(wep) then return end
-		
+
 		wep:SetClip1(1)
 	end)
 end
