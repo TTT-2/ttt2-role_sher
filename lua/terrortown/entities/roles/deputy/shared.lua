@@ -36,6 +36,12 @@ function ROLE:Initialize()
 		LANG.AddToLanguage("English", "ttt2_desc_" .. self.name, [[You need to help protecting the innocents!]])
 		LANG.AddToLanguage("English", "body_found_" .. self.abbr, "This was a Deputy...")
 		LANG.AddToLanguage("English", "search_role_" .. self.abbr, "This person was a Deputy!")
+		
+		LANG.AddToLanguage("Italian", self.name, "Vice")
+		LANG.AddToLanguage("Italian", "target_" .. self.name, "Vice")
+		LANG.AddToLanguage("Italian", "ttt2_desc_" .. self.name, [[Devi aiutare a proteggere gli innocenti!]])
+		LANG.AddToLanguage("Italian", "body_found_" .. self.abbr, "Era un Vice...")
+		LANG.AddToLanguage("Italian", "search_role_" .. self.abbr, "Questa persona era un Vice!")
 
 		LANG.AddToLanguage("Deutsch", self.name, "Hilfssheriff")
 		LANG.AddToLanguage("Deutsch", "target_" .. self.name, "Hilfssheriff")
