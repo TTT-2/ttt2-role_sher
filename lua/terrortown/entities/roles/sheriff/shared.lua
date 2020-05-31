@@ -30,33 +30,6 @@ end
 
 function ROLE:Initialize()
 	roles.SetBaseRole(self, ROLE_DETECTIVE)
-
-	if CLIENT then
-		-- Role specific language elements
-		LANG.AddToLanguage("English", self.name, "Sheriff")
-		LANG.AddToLanguage("English", "info_popup_" .. self.name, [[You are the Sheriff! Try to get a mate to protect the innocents.]])
-		LANG.AddToLanguage("English", "body_found_" .. self.abbr, "This person was a Sheriff!")
-		LANG.AddToLanguage("English", "search_role_" .. self.abbr, "This person was a Sheriff!")
-		LANG.AddToLanguage("English", "target_" .. self.name, "Sheriff")
-		LANG.AddToLanguage("English", "ttt2_desc_" .. self.name, [[The Sheriff needs to protect the innocents with his deputy! If the Sheriff dies, the deputy will die too (automatically).]])
-		LANG.AddToLanguage("English", "credit_" .. self.abbr .. "_all", "Sheriff, you have been awarded {num} equipment credit(s) for your performance.")
-		
-		LANG.AddToLanguage("Italiano", self.name, "Sceriffo")
-		LANG.AddToLanguage("Italiano", "info_popup_" .. self.name, [[Sei lo Sceriffo! Prova a prendere un Vice per proteggere gli Innocenti.]])
-		LANG.AddToLanguage("Italiano", "body_found_" .. self.abbr, "Era uno Sceriffo!")
-		LANG.AddToLanguage("Italiano", "search_role_" .. self.abbr, "Questa persona era uno Sceriffo!")
-		LANG.AddToLanguage("Italiano", "target_" .. self.name, "Sceriffo")
-		LANG.AddToLanguage("Italiano", "ttt2_desc_" .. self.name, [[Lo Sceriffo deve proteggere gli innocenti con il suo Vice! Se lo Sceriffo muore, anche il Vice lo farà (automaticamente).]])
-		LANG.AddToLanguage("Italiano", "credit_" .. self.abbr .. "_all", "Sceriffo, ti è stato dato {num} credito per la tua performance.")
-
-		LANG.AddToLanguage("Deutsch", self.name, "Sheriff")
-		LANG.AddToLanguage("Deutsch", "info_popup_" .. self.name, [[Du bist ein Sheriff! Versuche, einen Deputy zu bekommen und so ie Innocents besser zu beschützen.]])
-		LANG.AddToLanguage("Deutsch", "body_found_" .. self.abbr, "Er war ein Sheriff!")
-		LANG.AddToLanguage("Deutsch", "search_role_" .. self.abbr, "Diese Person war ein Sheriff!")
-		LANG.AddToLanguage("Deutsch", "target_" .. self.name, "Sheriff")
-		LANG.AddToLanguage("Deutsch", "ttt2_desc_" .. self.name, [[Der Sheriff muss mit seinem Deputy die Unschuldigen beschützen! Wenn der Sheriff stirbt, wird auch der Hilfssheriff automatisch sterben.]])
-		LANG.AddToLanguage("Deutsch", "credit_" .. self.abbr .. "_all", "Sheriffs, euch wurden {num} Ausrüstungs-Credit(s) für eure Leistung gegeben.")
-	end
 end
 
 if SERVER then
