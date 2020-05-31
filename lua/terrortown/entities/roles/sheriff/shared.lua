@@ -30,25 +30,6 @@ end
 
 function ROLE:Initialize()
 	roles.SetBaseRole(self, ROLE_DETECTIVE)
-
-	if CLIENT then
-		-- Role specific language elements
-		LANG.AddToLanguage("English", self.name, "Sheriff")
-		LANG.AddToLanguage("English", "info_popup_" .. self.name, [[You are the Sheriff! Try to get a mate to protect the innocents.]])
-		LANG.AddToLanguage("English", "body_found_" .. self.abbr, "This person was a Sheriff!")
-		LANG.AddToLanguage("English", "search_role_" .. self.abbr, "This person was a Sheriff!")
-		LANG.AddToLanguage("English", "target_" .. self.name, "Sheriff")
-		LANG.AddToLanguage("English", "ttt2_desc_" .. self.name, [[The Sheriff needs to protect the innocents with his deputy! If the Sheriff dies, the deputy will die too (automatically).]])
-		LANG.AddToLanguage("English", "credit_" .. self.abbr .. "_all", "Sheriff, you have been awarded {num} equipment credit(s) for your performance.")
-
-		LANG.AddToLanguage("Deutsch", self.name, "Sheriff")
-		LANG.AddToLanguage("Deutsch", "info_popup_" .. self.name, [[Du bist ein Sheriff! Versuche, einen Deputy zu bekommen und so ie Innocents besser zu beschützen.]])
-		LANG.AddToLanguage("Deutsch", "body_found_" .. self.abbr, "Er war ein Sheriff!")
-		LANG.AddToLanguage("Deutsch", "search_role_" .. self.abbr, "Diese Person war ein Sheriff!")
-		LANG.AddToLanguage("Deutsch", "target_" .. self.name, "Sheriff")
-		LANG.AddToLanguage("Deutsch", "ttt2_desc_" .. self.name, [[Der Sheriff muss mit seinem Deputy die Unschuldigen beschützen! Wenn der Sheriff stirbt, wird auch der Hilfssheriff automatisch sterben.]])
-		LANG.AddToLanguage("Deutsch", "credit_" .. self.abbr .. "_all", "Sheriffs, euch wurden {num} Ausrüstungs-Credit(s) für eure Leistung gegeben.")
-	end
 end
 
 if SERVER then

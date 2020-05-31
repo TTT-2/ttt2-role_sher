@@ -28,21 +28,6 @@ end
 
 function ROLE:Initialize()
 	roles.SetBaseRole(self, ROLE_DETECTIVE)
-
-	if CLIENT then
-		-- Role specific language elements
-		LANG.AddToLanguage("English", self.name, "Deputy")
-		LANG.AddToLanguage("English", "target_" .. self.name, "Deputy")
-		LANG.AddToLanguage("English", "ttt2_desc_" .. self.name, [[You need to help protecting the innocents!]])
-		LANG.AddToLanguage("English", "body_found_" .. self.abbr, "This was a Deputy...")
-		LANG.AddToLanguage("English", "search_role_" .. self.abbr, "This person was a Deputy!")
-
-		LANG.AddToLanguage("Deutsch", self.name, "Hilfssheriff")
-		LANG.AddToLanguage("Deutsch", "target_" .. self.name, "Hilfssheriff")
-		LANG.AddToLanguage("Deutsch", "ttt2_desc_" .. self.name, [[Du musst helfen, die Innocents zu beschützen!]])
-		LANG.AddToLanguage("Deutsch", "body_found_" .. self.abbr, "Er war ein Hilfssheriff!")
-		LANG.AddToLanguage("Deutsch", "search_role_" .. self.abbr, "Diese Person war ein Hilfssheriff!")
-	end
 end
 
 hook.Add("TTTUlxDynamicRCVars", "TTTUlxDynamicDepCVars", function(tbl)
