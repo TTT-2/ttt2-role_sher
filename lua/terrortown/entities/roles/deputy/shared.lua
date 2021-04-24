@@ -12,16 +12,17 @@ if not plymeta then return end
 function ROLE:PreInitialize()
 	self.color = Color(83, 120, 182, 255)
 
-	self.abbr = "dep" -- abbreviation
-	self.scoreKillsMultiplier = 1 -- multiplier for kill of player of another team
-	self.scoreTeamKillsMultiplier = -16 -- multiplier for teamkill
-	self.notSelectable = true -- role cant be selected!
-	self.unknownTeam = true -- player don't know their teammates
+	self.abbr = "dep"
+	self.score.killsMultiplier = 8
+	self.score.teamKillsMultiplier = -8
+	self.score.bodyFoundMuliplier = 3
+	self.notSelectable = true
+	self.unknownTeam = true
 
-	self.defaultEquipment = SPECIAL_EQUIPMENT -- here you can set up your own default equipment
+	self.defaultEquipment = SPECIAL_EQUIPMENT
 
 	self.conVarData = {
-		credits = 1, -- the starting credits of a specific role
+		credits = 1,
 		shopFallback = SHOP_FALLBACK_DETECTIVE
 	}
 end

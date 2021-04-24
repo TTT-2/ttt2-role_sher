@@ -7,22 +7,23 @@ end
 function ROLE:PreInitialize()
 	self.color = Color(51, 93, 165, 255)
 
-	self.abbr = "sher" -- abbreviation
-	self.scoreKillsMultiplier = 1 -- multiplier for kill of player of another team
-	self.scoreTeamKillsMultiplier = -8 -- multiplier for teamkill
+	self.abbr = "sher"
+	self.score.killsMultiplier = 8
+	self.score.teamKillsMultiplier = -8
+	self.score.bodyFoundMuliplier = 3
 	self.unknownTeam = true
 
-	self.defaultTeam = TEAM_INNOCENT -- the team name: roles with same team name are working together
-	self.defaultEquipment = SPECIAL_EQUIPMENT -- here you can set up your own default equipment
+	self.defaultTeam = TEAM_INNOCENT
+	self.defaultEquipment = SPECIAL_EQUIPMENT
 
 	self.conVarData = {
-		pct = 0.13, -- necessary: percentage of getting this role selected (per player)
-		maximum = 1, -- maximum amount of roles in a round
-		minPlayers = 8, -- minimum amount of players until this role is able to get selected
-		credits = 2, -- the starting credits of a specific role
+		pct = 0.13,
+		maximum = 1,
+		minPlayers = 8,
+		credits = 2,
 		creditsTraitorKill = 0,
 		creditsTraitorDead = 1,
-		togglable = true, -- option to toggle a role for a client if possible (F1 menu)
+		togglable = true,
 		random = 50,
 		shopFallback = SHOP_FALLBACK_DETECTIVE
 	}
