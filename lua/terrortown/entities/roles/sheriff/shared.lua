@@ -20,9 +20,10 @@ function ROLE:PreInitialize()
 		pct = 0.13,
 		maximum = 1,
 		minPlayers = 8,
+		minKarma = 600,
 		credits = 2,
-		creditsTraitorKill = 0,
-		creditsTraitorDead = 1,
+		creditsAwardDeadEnable = 1,
+		creditsAwardKillEnable = 0,
 		togglable = true,
 		random = 50,
 		shopFallback = SHOP_FALLBACK_DETECTIVE

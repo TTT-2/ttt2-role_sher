@@ -23,6 +23,8 @@ function ROLE:PreInitialize()
 
 	self.conVarData = {
 		credits = 1,
+		creditsAwardDeadEnable = 1,
+		creditsAwardKillEnable = 0,
 		shopFallback = SHOP_FALLBACK_DETECTIVE
 	}
 end
