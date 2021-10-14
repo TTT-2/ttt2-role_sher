@@ -16,6 +16,9 @@ function ROLE:PreInitialize()
 	self.defaultTeam = TEAM_INNOCENT
 	self.defaultEquipment = SPECIAL_EQUIPMENT
 
+	self.isPublicRole = true
+	self.isPolicingRole = true
+
 	self.conVarData = {
 		pct = 0.13,
 		maximum = 1,
