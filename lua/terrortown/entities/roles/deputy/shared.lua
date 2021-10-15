@@ -19,7 +19,11 @@ function ROLE:PreInitialize()
 	self.notSelectable = true
 	self.unknownTeam = true
 
+	self.defaultTeam = TEAM_INNOCENT
 	self.defaultEquipment = SPECIAL_EQUIPMENT
+
+	self.isPublicRole = true
+	self.isPolicingRole = true
 
 	self.conVarData = {
 		credits = 1,
