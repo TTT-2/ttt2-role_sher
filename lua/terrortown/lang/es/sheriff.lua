@@ -15,3 +15,9 @@ L["target_" .. DEPUTY.name] = "Delegado"
 L["ttt2_desc_" .. DEPUTY.name] = [[¡Debes proteger a los inocentes!]]
 L["body_found_" .. DEPUTY.abbr] = "¡Era un Delegado!"
 L["search_role_" .. DEPUTY.abbr] = "Esta persona era un Delegado"
+
+-- OTHER ROLE LANGUAGE STRINGS
+--L["label_dep_protection_time"] = "Protection time for new Deputy"
+--L["label_dep_deagle_refill"] = "Deputy Deagle can be refilled after missing a shot"
+--L["label_dep_deagle_refill_cd"] = "Refill cooldown in seconds"
+--L["label_dep_deagle_refill_cd_per_kill"] = "Refill cooldown reduction per kill"

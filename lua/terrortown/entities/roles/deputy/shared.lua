@@ -37,15 +37,6 @@ function ROLE:Initialize()
 	roles.SetBaseRole(self, ROLE_DETECTIVE)
 end
 
-hook.Add("TTTUlxDynamicRCVars", "TTTUlxDynamicDepCVars", function(tbl)
-	tbl[ROLE_DEPUTY] = tbl[ROLE_DEPUTY] or {}
-
-	table.insert(tbl[ROLE_DEPUTY], {cvar = "ttt2_dep_protection_time", slider = true, min = 0, max = 60, desc = "Protection Time for new Deputy (Def. 1)"})
-	table.insert(tbl[ROLE_DEPUTY], {cvar = "ttt2_dep_deagle_refill", checkbox = true, desc = "The Deputy Deagle can be refilled when you missed a shot. (Def. 1)"})
-	table.insert(tbl[ROLE_DEPUTY], {cvar = "ttt2_dep_deagle_refill_cd", slider = true, min = 1, max = 300, desc = "Seconds to Refill (Def. 120)"})
-	table.insert(tbl[ROLE_DEPUTY], {cvar = "ttt2_dep_deagle_refill_cd_per_kill", slider = true, min = 1, max = 300, desc = "CD Reduction per Kill (Def. 60)"})
-end)
-
 function plymeta:IsDeputy()
 	return IsValid(self:GetNWEntity("binded_deputy", nil))
 end
@@ -168,6 +159,41 @@ if SERVER then
 end
 
 if CLIENT then
+	function ROLE:AddToSettingsMenu(parent)
+		local form = vgui.CreateTTT2Form(parent, "header_roles_additional")
+
+		form:MakeSlider({
+			serverConvar = "ttt2_dep_protection_time",
+			label = "label_dep_protection_time",
+			min = 0,
+			max = 60,
+			decimal = 0
+		})
+
+		local enbRefill = form:MakeCheckBox({
+			serverConvar = "ttt2_dep_deagle_refill",
+			label = "label_dep_deagle_refill"
+		})
+
+		form:MakeSlider({
+			serverConvar = "ttt2_dep_deagle_refill_cd",
+			label = "label_dep_deagle_refill_cd",
+			min = 1,
+			max = 300,
+			decimal = 0,
+			master = enbRefill
+		})
+
+		form:MakeSlider({
+			serverConvar = "ttt2_dep_deagle_refill_cd_per_kill",
+			label = "label_dep_deagle_refill_cd_per_kill",
+			min = 1,
+			max = 300,
+			decimal = 0,
+			master = enbRefill
+		})
+	end
+
 	net.Receive("TTT2HealDeputy", function()
 		HealDeputy(LocalPlayer())
 	end)

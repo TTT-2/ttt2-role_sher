@@ -14,3 +14,9 @@ L["target_" .. DEPUTY.name] = "Hilfssheriff"
 L["ttt2_desc_" .. DEPUTY.name] = [[Du musst helfen, die Innocents zu beschützen!]]
 L["body_found_" .. DEPUTY.abbr] = "Er war ein Hilfssheriff!"
 L["search_role_" .. DEPUTY.abbr] = "Diese Person war ein Hilfssheriff!"
+
+-- OTHER ROLE LANGUAGE STRINGS
+L["label_dep_protection_time"] = "Schutzzeit für neuen Hilfssheriff"
+L["label_dep_deagle_refill"] = "Hilfssheriff Deagle kann nachgefüllt werden, wenn ein Schuss verfehlt wurde"
+L["label_dep_deagle_refill_cd"] = "Nachfüllabklingzeit in Sekunden"
+L["label_dep_deagle_refill_cd_per_kill"] = "Abklingzeitreduzierung pro Kill"
