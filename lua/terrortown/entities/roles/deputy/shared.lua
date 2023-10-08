@@ -170,7 +170,7 @@ if CLIENT then
 			decimal = 0
 		})
 
-		form:MakeCheckBox({
+		local enbRefill = form:MakeCheckBox({
 			serverConvar = "ttt2_dep_deagle_refill",
 			label = "label_dep_deagle_refill"
 		})
@@ -180,7 +180,8 @@ if CLIENT then
 			label = "label_dep_deagle_refill_cd",
 			min = 1,
 			max = 300,
-			decimal = 0
+			decimal = 0,
+			master = enbRefill
 		})
 
 		form:MakeSlider({
@@ -188,7 +189,8 @@ if CLIENT then
 			label = "label_dep_deagle_refill_cd_per_kill",
 			min = 1,
 			max = 300,
-			decimal = 0
+			decimal = 0,
+			master = enbRefill
 		})
 	end
 
